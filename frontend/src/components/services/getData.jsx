@@ -19,7 +19,7 @@ async function getData(image) {
     };
     const response = await fetch(
       `${AzureEndpoint}computervision/imageanalysis:analyze?api-version=2023-02-01-preview&features=tags,caption,denseCaptions,objects`,
-      fetchOptions,
+      fetchOptions
     );
     console.log("Fetch complete");
     const parsedData = await response.json();
