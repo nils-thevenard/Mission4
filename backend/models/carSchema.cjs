@@ -6,7 +6,7 @@ const carSchema = mongoose.Schema({
   carType: { type: String },
   carColor: { type: String },
   carBrand: { type: String },
-  carPrice: { type: String },
+  carPrice: { type: Number },
 });
 
 //create and export
