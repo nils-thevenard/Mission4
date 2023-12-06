@@ -10,7 +10,7 @@ const {
   updateCar,
   removeCar,
   listCars,
-} = require("../server.cjs");
+} = require("./functions.cjs");
 
 program.version("1.0.0").description("Client Management System");
 
