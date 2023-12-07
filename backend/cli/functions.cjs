@@ -37,6 +37,7 @@ const updateCar = (_id, car) => {
   });
 };
 
+// function to remove a car from the database
 const removeCar = (_id) => {
   Car.deleteOne({ _id })
     .then((result) => {
@@ -47,12 +48,14 @@ const removeCar = (_id) => {
       }
       mongoose.disconnect();
     })
+    // error handling if function failed
     .catch((error) => {
       console.error("Error removing car:", error);
       mongoose.disconnect();
     });
 };
 
+// function to list the contents of the database
 const listCars = () => {
   Car.find().then((car) => {
     console.info(car);
@@ -61,6 +64,7 @@ const listCars = () => {
   });
 };
 
+// exporting the functions to be used in commands.cjs
 module.exports = {
   addCar,
   findCar,

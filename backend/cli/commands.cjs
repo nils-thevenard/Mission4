@@ -1,9 +1,9 @@
 #!/usr/bin/env node
+// importing libraries
 const program = require("commander");
 const { prompt } = require("inquirer");
-// const { addEntry } = require("./functions.cjs");
 
-// adding in the functions
+// importing the functions from functions.cjs
 const {
   addCar,
   findCar,
@@ -14,6 +14,7 @@ const {
 
 program.version("1.0.0").description("Client Management System");
 
+// define add process
 program
   .command("add")
   .alias("a")
@@ -22,12 +23,43 @@ program
     prompt(questions).then((answers) => addCar(answers));
   });
 
+// defining the questions asked in the add process
+const questions = [
+  {
+    type: "input",
+    name: "imgUrl",
+    message: "Please enter a URL",
+  },
+  {
+    type: "input",
+    name: "carType",
+    message: "Please enter a car type",
+  },
+  {
+    type: "input",
+    name: "carColor",
+    message: "Please enter a car color",
+  },
+  {
+    type: "input",
+    name: "carBrand",
+    message: "Please enter a car brand",
+  },
+  {
+    type: "input",
+    name: "carPrice",
+    message: "Please enter a car price",
+  },
+];
+
+// define find process
 program
   .command("find <carType>")
   .alias("f")
   .description("find a car")
   .action((model) => findCar(model));
 
+// define update process
 program
   .command("update <_id>")
   .alias("u")
@@ -36,44 +68,18 @@ program
     prompt(questions).then((answers) => updateCar(_id, answers));
   });
 
+// define remove process
 program
   .command("remove <_id>")
   .alias("r")
   .description("remove a car")
   .action((_id) => removeCar(_id));
 
+//define list process
 program
   .command("list")
   .alias("l")
   .description("list all cars")
   .action(() => listCars());
-
-const questions = [
-  {
-    type: "input",
-    name: "imgUrl",
-    message: "Enter a URL",
-  },
-  {
-    type: "input",
-    name: "carType",
-    message: "Enter a car type",
-  },
-  {
-    type: "input",
-    name: "carColor",
-    message: "Enter a car color",
-  },
-  {
-    type: "input",
-    name: "carBrand",
-    message: "Enter a car brand",
-  },
-  {
-    type: "input",
-    name: "carPrice",
-    message: "Enter a car price",
-  },
-];
 
 program.parse(process.argv);
