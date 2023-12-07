@@ -1,45 +1,79 @@
-const program = require('commander');
-const { prompt } = require('inquirer') 
-const { addEntry } = require('./functions.cjs')
+#!/usr/bin/env node
+const program = require("commander");
+const { prompt } = require("inquirer");
+// const { addEntry } = require("./functions.cjs");
 
+// adding in the functions
+const {
+  addCar,
+  findCar,
+  updateCar,
+  removeCar,
+  listCars,
+} = require("./functions.cjs");
 
+program.version("1.0.0").description("Client Management System");
 
 program
-    .version('1.0.0')
-    .description('Client Management System')
-
-
+  .command("add")
+  .alias("a")
+  .description("Add an entry")
+  .action(() => {
+    prompt(questions).then((answers) => addCar(answers));
+  });
 
 program
-    .command('addOne <carColor> <brand>')
-    .alias('a')
-    .description('Add an entry')
-    .action(async (carColor, carBrand) => {
-        const inputData = { carColor: carColor,
-                            carBrand: carBrand
-                            };
-        await addEntry(inputData);});
+  .command("find <carType>")
+  .alias("f")
+  .description("find a car")
+  .action((model) => findCar(model));
 
+program
+  .command("update <_id>")
+  .alias("u")
+  .description("update a car")
+  .action((_id) => {
+    prompt(questions).then((answers) => updateCar(_id, answers));
+  });
+
+program
+  .command("remove <_id>")
+  .alias("r")
+  .description("remove a car")
+  .action((_id) => removeCar(_id));
+
+program
+  .command("list")
+  .alias("l")
+  .description("list all cars")
+  .action(() => listCars());
 
 const questions = [
-        {
-            type: 'input',
-            name: 'carColor',
-            message: 'Enter a color'
-        },
-        {
-            type: 'input',
-            name: 'carBrand',
-            message: 'Enter a car brand'
-        }
-    ]
+  {
+    type: "input",
+    name: "imgUrl",
+    message: "Enter a URL",
+  },
+  {
+    type: "input",
+    name: "carType",
+    message: "Enter a car type",
+  },
+  {
+    type: "input",
+    name: "carColor",
+    message: "Enter a car color",
+  },
+  {
+    type: "input",
+    name: "carBrand",
+    message: "Enter a car brand",
+  },
+  {
+    type: "input",
+    name: "carPrice",
+    message: "Enter a car price",
+  },
+];
 
-    program
-        .command('add')
-        .alias('a')
-        .description('Add an entry')
-        .action(() => {
-            prompt(questions).then(answers => addEntry(answers))
-        });
-
-program.parse(process.argv); 
+program.parse(process.argv);
